@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>For Alifia Zahra Iqnesa 💖 — Web Cinta Interaktif</title>
+<style>
+  :root{
+    --bg1:#fff5f9; --bg2:#fff0f6; --accent:#d63384; --accent2:#ff6fa3;
+    --glass: rgba(255,255,255,0.75); --muted:#6b6b6b;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;padding:0;
+    font-family:Inter, "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    background:linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:#222; -webkit-font-smoothing:antialiased;
+  }
+
+  /* top promo bar */
+  .topbar{
+    text-align:center;padding:10px 12px;background:linear-gradient(90deg,#ffdfe8,#ffecf6);
+    color:var(--accent); font-weight:700;
+  }
+
+  header{padding:12px 16px;text-align:center}
+  header h1{margin:6px 0;color:var(--accent);font-size:20px}
+  header p{margin:0;color:var(--muted);font-size:13px}
+
+  .container{max-width:1080px;margin:8px auto;padding:0 12px;position:relative}
+
+  .slidesWrap{
+    background:linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.9));
+    border-radius:14px;padding:12px;box-shadow:0 10px 36px rgba(214,51,132,0.06);
+    backdrop-filter: blur(6px);
+  }
+  .slidesInner{min-height:240px;display:block}
+
+  .slide{display:none;padding:12px;text-align:center}
+  .slide.active{display:block;animation:fadeIn .45s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .slide h2{color:var(--accent);margin:6px 0;font-size:18px}
+  .slide p{margin:0 0 12px;color:#444;font-size:14px}
+
+  .media-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+  .media-row img,.media-row video{width:180px;border-radius:12px;box-shadow:0 8px 20px rgba(214,51,132,0.08);cursor:pointer}
+  .media-row video{object-fit:cover;height:120px}
+
+  .controls{display:flex;gap:8px;justify-content:center;margin-top:12px}
+  .btn{border:none;padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(214,51,132,0.08)}
+  .btn.ghost{background:transparent;color:var(--accent);border:2px solid rgba(214,51,132,0.08)}
+
+  .dots{display:flex;gap:8px;justify-content:center;margin-top:10px}
+  .dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.08);cursor:pointer}
+  .dot.active{background:var(--accent)}
+
+  .typed{margin-top:12px;text-align:center;font-weight:700;color:var(--accent);min-height:28px}
+
+  /* panels */
+  .panels{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;justify-content:center}
+  .panel{min-width:300px;flex:1 1 360px;padding:12px;border-radius:12px;background:var(--glass);box-shadow:0 8px 24px rgba(0,0,0,0.04)}
+
+  #gameArea{height:300px;border-radius:10px;position:relative;overflow:hidden;background:linear-gradient(180deg,#fff,#fff7fb);border:2px dashed rgba(214,51,132,0.08)}
+  .game-heart{position:absolute;font-size:26px;cursor:pointer;user-select:none;transform-origin:center;transition:transform .12s ease}
+
+  .catBox{height:170px;border-radius:10px;background:#fff;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,0.04)}
+  #cat{position:absolute;left:12px;bottom:12px;font-size:72px;user-select:none;cursor:pointer;transition:transform .28s ease,left .08s linear;filter:drop-shadow(0 8px 18px rgba(214,51,132,0.09))}
+  #cat.jump{animation:catJump .6s ease both}
+  @keyframes catJump{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-120px) scale(1.06)}60%{transform:translateY(-120px) scale(1.06)}100%{transform:translateY(0) scale(1)}}
+
+  .meowBadge{position:absolute;top:8px;right:12px;background:var(--accent);color:white;padding:6px 10px;border-radius:999px;font-weight:800;display:none}
+
+  .popup{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:white;padding:10px 16px;border-radius:999px;border:2px solid rgba(214,51,132,0.08);box-shadow:0 10px 34px rgba(0,0,0,0.08);font-weight:700;color:var(--accent);display:none;z-index:9999}
+
+  .confetti{position:fixed;top:-20px;z-index:999;animation:confFall linear forwards;font-size:18px}
+  @keyframes confFall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+
+  .sticker-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .sticker-row img{width:120px;border-radius:10px;cursor:pointer;animation:wiggle 3.2s infinite}
+  @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(3deg)}50%{transform:rotate(-3deg)}75%{transform:rotate(2deg)}}
+
+  .gallery video{width:220px;height:140px;border-radius:10px;object-fit:cover;cursor:pointer}
+
+  .bottomControls{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:8px}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* modal enlarge */
+  .modal{
+    position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:99999;
+  }
+  .modal img,.modal video{max-width:92%;max-height:88%;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+  @media (max-width:820px){ .gallery video{width:48%;height:110px} .media-row video{width:140px;height:100px} }
+</style>
+</head>
+<body>
+
+<div class="topbar">🌸 Hai Alifia Zahra Iqnesa — semoga halaman ini bisa balikin moodmu 💖</div>
+
+<header>
+  <h1>For Alifia Zahra Iqnesa 💖</h1>
+  <p>Web ini dibuat khusus untuk sayangku — penuh cinta & kejutan!</p>
+</header>
+
+<div class="container">
+  <div class="slidesWrap" aria-live="polite">
+    <div class="slidesInner">
+
+      <!-- SLIDE 1: Welcome + video + stickers -->
+      <section class="slide active" id="slide-1">
+        <h2>Hai Sayangku 💕</h2>
+        <p>Aku buat ini supaya kamu senyum lagi — klik video untuk besar!</p>
+        <div class="media-row">
+          <video src="2.mp4" autoplay loop muted playsinline data-video="1"></video>
+          <div class="sticker-row">
+            <img src="1.gif" alt="stiker1">
+            <img src="2.gif" alt="stiker2">
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: Gallery (videos replacing photos) -->
+      <section class="slide" id="slide-2">
+        <h2>Kenangan Kita (Video) 📹</h2>
+        <p>Ketuk video untuk perbesar — semua video autoplay & loop (muted supaya autoplay bekerja).</p>
+        <div class="gallery" id="gallery">
+          <video src="1.mp4" autoplay loop muted playsinline data-video="2"></video>
+          <video src="3.mp4" autoplay loop muted playsinline data-video="3"></video>
+          <video src="4.mp4" autoplay loop muted playsinline data-video="4"></video>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Secret messages -->
+      <section class="slide" id="slide-3">
+        <h2>Pesan Rahasia Untukmu 💌</h2>
+        <p id="secretText">Klik tombol untuk buka pesan manis.</p>
+        <div style="margin-top:12px">
+          <button class="btn" id="openSecretBtn">💌 Buka Pesan Rahasia</button>
+          <button class="btn ghost" id="surpriseBtn">🎁 Tombol Rahasia</button>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Game -->
+      <section class="slide" id="slide-4">
+        <h2>Main Tangkap Hati ❤️</h2>
+        <p>Klik hati yang jatuh atau biarkan kucing ngejar hatinya — skor bertambah!</p>
+        <div id="gameArea" aria-hidden="false"></div>
+        <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
+          <div class="small">Skor: <strong id="score">0</strong></div>
+          <div>
+            <button class="btn" id="resetScoreBtn">Reset</button>
+            <button class="btn ghost" id="muteBtn">Mute</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="controls" role="tablist">
+      <button class="btn ghost" id="prevBtn">⬅️ Back</button>
+      <button class="btn" id="nextBtn">Next ➡️</button>
+    </div>
+
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <div class="typed" id="typedLine"></div>
+
+  <div class="panels">
+    <div class="panel">
+      <h3>Mini Game & Musik</h3>
+      <p class="small">Klik area putih untuk popup manis — klik stiker/video untuk 'like'.</p>
+      <div style="margin-top:10px">
+        <strong>Kontrol Musik</strong>
+        <div class="bottomControls">
+          <button class="btn" id="playBtn">Play</button>
+          <button class="btn ghost" id="pauseBtn">Pause</button>
+          <label class="small">Vol:</label>
+          <input id="vol" type="range" min="0" max="1" step="0.05" value="0.85">
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <strong>Tip</strong>
+        <p class="small">Jika musik tidak otomatis, klik di halaman untuk memulai.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Kucing Interaktif 🐱</h3>
+      <p class="small">Kucing jalan otomatis; klik untuk lompat; kucing juga ngejar hati!</p>
+      <div class="catBox" id="catBox">
+        <div id="cat" title="Klik aku!">🐱</div>
+        <div class="meowBadge" id="meowBadge">MEOW!</div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;justify-content:center">
+        <button class="btn" id="meowBtn">Bunyi Meong</button>
+        <button class="btn ghost" id="toggleCatPlay">Toggle Cat Play</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:10px">
+    <button class="btn ghost" id="secretBigBtn">Tekan kalau Berani! 🎉</button>
+  </div>
+
+</div>
+
+<div class="popup" id="popup"></div>
+
+<!-- audio (local files expected) -->
+<audio id="bgm" loop src="Virgoun - Bukti A Testament (Official Lyric Video).mp3"></audio>
+<audio id="meowSfx" src="cat-meow-401729.mp3"></audio>
+<audio id="popSfx" src="pop.mp3"></audio>
+<audio id="dingSfx" src="ding.mp3"></audio>
+
+<script>
+/* ====== init ====== */
+const slides = Array.from(document.querySelectorAll('.slide'));
+let currentIndex = 0;
+const dotsEl = document.getElementById('dots');
+const typedLine = document.getElementById('typedLine');
+const popupEl = document.getElementById('popup');
+const bgm = document.getElementById('bgm');
+const meowSfx = document.getElementById('meowSfx');
+const popSfx = document.getElementById('popSfx');
+const dingSfx = document.getElementById('dingSfx');
+
+const catEl = document.getElementById('cat');
+const catBox = document.getElementById('catBox');
+
+const gameArea = document.getElementById('gameArea');
+const scoreEl = document.getElementById('score');
+
+const stickerImgs = document.querySelectorAll('.sticker-row img');
+const galleryVideos = document.querySelectorAll('.gallery video');
+const mediaVideos = document.querySelectorAll('.media-row video');
+
+/* ====== Dots navigation ====== */
+slides.forEach((s,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0 ? ' active' : '');
+  d.title = `Slide ${i+1}`;
+  d.addEventListener('click', ()=> showSlide(i));
+  dotsEl.appendChild(d);
+});
+
+/* ====== Show slide ====== */
+function showSlide(index){
+  if(index < 0) index = slides.length-1;
+  if(index >= slides.length) index = 0;
+  slides.forEach(s=> s.classList.remove('active'));
+  slides[index].classList.add('active');
+  currentIndex = index;
+  // update dots
+  dotsEl.querySelectorAll('.dot').forEach((d,i)=> d.classList.toggle('active', i===index));
+  // confetti + hearts
+  launchConfetti(10);
+  for(let i=0;i<3;i++) spawnBgHeart();
+}
+document.getElementById('nextBtn').addEventListener('click', ()=> showSlide(currentIndex+1));
+document.getElementById('prevBtn').addEventListener('click', ()=> showSlide(currentIndex-1));
+
+/* keyboard & swipe */
+window.addEventListener('keydown', e => { if(e.key==='ArrowRight') showSlide(currentIndex+1); if(e.key==='ArrowLeft') showSlide(currentIndex-1); });
+let touchStartX=0;
+window.addEventListener('touchstart', e=> touchStartX = e.changedTouches[0].screenX);
+window.addEventListener('touchend', e=> { const dx = e.changedTouches[0].screenX - touchStartX; if(dx<-50) showSlide(currentIndex+1); if(dx>50) showSlide(currentIndex-1); });
+
+/* typed text */
+const typedText = "For Alifia Zahra Iqnesa 💖 | Web ini dibuat khusus untuk sayangku — semoga bisa balikin moodnya ✨";
+let tIdx = 0;
+function typedTick(){
+  typedLine.textContent = typedText.slice(0, tIdx);
+  tIdx++;
+  if(tIdx > typedText.length + 30){ tIdx = 0; setTimeout(typedTick, 600); }
+  else setTimeout(typedTick, 36);
+}
+typedTick();
+
+/* ====== background falling hearts ====== */
+function spawnBgHeart(){
+  const h = document.createElement('div');
+  h.className = 'confetti';
+  h.textContent = ['💖','💕','💘','❤️'][Math.floor(Math.random()*4)];
+  h.style.left = Math.random()*100 + 'vw';
+  h.style.fontSize = (12 + Math.random()*28) + 'px';
+  h.style.animationDuration = (3 + Math.random()*4) + 's';
+  document.body.appendChild(h);
+  setTimeout(()=> { if(h.parentElement) h.remove(); }, (parseFloat(h.style.animationDuration)+0.6)*1000);
+}
+setInterval(spawnBgHeart, 700);
+
+/* ====== confetti ====== */
+function launchConfetti(count=12){
+  for(let i=0;i<count;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.textContent = ['💖','💕','💘','❤️'][Math.floor(Math.random()*4)];
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.fontSize = (12 + Math.random()*26) + 'px';
+    c.style.animationDuration = (2 + Math.random()*3) + 's';
+    document.body.appendChild(c);
+    setTimeout(()=> { if(c.parentElement) c.remove(); }, (parseFloat(c.style.animationDuration)+0.6)*1000);
+  }
+}
+
+/* ====== popup helper ====== */
+function showPopup(msg, duration=2200){
+  popupEl.textContent = msg;
+  popupEl.style.display = 'block';
+  popupEl.style.opacity = '1';
+  setTimeout(()=> { popupEl.style.opacity = '0'; setTimeout(()=> popupEl.style.display='none', 300); }, duration);
+}
+
+/* ====== enlarge modal for videos/images ====== */
+function openModalWithMedia(el){
+  const modal = document.createElement('div'); modal.className='modal';
+  const clone = el.cloneNode(true);
+  clone.removeAttribute('style');
+  clone.controls = true;
+  clone.autoplay = true;
+  clone.muted = false;
+  clone.playsInline = true;
+  modal.appendChild(clone);
+  modal.addEventListener('click', ()=> modal.remove());
+  document.body.appendChild(modal);
+  // try to play (may be blocked until user interacts)
+  clone.play().catch(()=>{});
+}
+document.querySelectorAll('.media-row video, .gallery video').forEach(v=>{
+  v.addEventListener('click', (e)=> { e.stopPropagation(); openModalWithMedia(v); });
+});
+
+/* ====== sticker click ====== */
+document.querySelectorAll('.sticker-row img').forEach(img=>{
+  img.addEventListener('click', ()=>{
+    if(dingSfx){ dingSfx.currentTime = 0; dingSfx.play().catch(()=>{}); }
+    for(let i=0;i<6;i++){
+      const b = document.createElement('div'); b.className='confetti';
+      b.textContent = ['💖','💕','💘','❤️'][Math.floor(Math.random()*4)];
+      const rect = img.getBoundingClientRect();
+      b.style.left = (rect.left + Math.random()*rect.width) + 'px';
+      b.style.fontSize = (10 + Math.random()*18) + 'px';
+      b.style.animationDuration = (0.8 + Math.random()*1.8) + 's';
+      document.body.appendChild(b);
+      setTimeout(()=> b.remove(), 1600 + Math.random()*1200);
+    }
+    showPopup("Kamu disukai ❤️");
+  });
+});
+
+/* ====== Secret / Surprise buttons ====== */
+document.getElementById('surpriseBtn').addEventListener('click', ()=>{
+  launchConfetti(24);
+  showPopup("Surprise! I LOVE YOU 💖");
+});
+document.getElementById('secretBigBtn').addEventListener('click', ()=>{
+  launchConfetti(40);
+  for(let i=0;i<20;i++) spawnBgHeart();
+  showPopup("Bukti Cintaku Untukmu 😍", 3000);
+  if(popSfx){ popSfx.currentTime = 0; popSfx.play().catch(()=>{}); }
+});
+
+/* ====== secret messages ====== */
+const secretList = [
+  "Aku sayang kamu lebih dari kata-kata ❤️",
+  "Kamu selalu jadi alasan aku senyum ☺️",
+  "Jangan sedih ya, aku selalu ada buat kamu 💕",
+  "Senyum cantikmu bikin aku bahagia 🌸",
+  "Cintaku cuma buat kamu, sayangkuu 💖",
+  "semogaa cepet kembali moodnya sayangg, i love you more sayangg❤️"
+];
+document.getElementById('openSecretBtn').addEventListener('click', ()=>{
+  const msg = secretList[Math.floor(Math.random()*secretList.length)];
+  document.getElementById('secretText').textContent = msg;
+  launchConfetti(12);
+});
+
+/* ====== Game: spawn hearts & chasing hearts ====== */
+let score = 0;
+function spawnGameHeart(){
+  const h = document.createElement('div');
+  h.className = 'game-heart';
+  h.textContent = ['💖','💕','💘'][Math.floor(Math.random()*3)];
+  const size = (18 + Math.random()*28);
+  h.style.fontSize = size + 'px';
+  const left = Math.random() * Math.max(50, gameArea.clientWidth - 60);
+  h.style.left = left + 'px';
+  h.style.top = '-40px';
+  const fallTime = (2.6 + Math.random()*3.2).toFixed(2);
+  h.style.transition = `top ${fallTime}s linear`;
+
+  gameArea.appendChild(h);
+  requestAnimationFrame(()=> { h.style.top = (gameArea.clientHeight - 40) + 'px'; });
+
+  h.addEventListener('click', (ev)=>{
+    ev.stopPropagation();
+    score++; scoreEl.textContent = score;
+    showPopup("For Alifia Zahra Iqnesa 💖");
+    if(popSfx){ popSfx.currentTime = 0; popSfx.play().catch(()=>{}); }
+    h.remove();
+  });
+
+  setTimeout(()=> { if(h.parentElement) h.remove(); }, (parseFloat(fallTime) + 0.4)*1000);
+}
+
+function spawnChasingHeart(){
+  const rect = gameArea.getBoundingClientRect();
+  const catRect = catEl.getBoundingClientRect();
+  const h = document.createElement('div');
+  h.className = 'game-heart';
+  h.textContent = '💘';
+  const size = (18 + Math.random()*24);
+  h.style.fontSize = size + 'px';
+  // spawn near cat horizontally
+  const localX = Math.max(8, Math.min(gameArea.clientWidth-40, (catRect.left - rect.left) + (Math.random()*100 - 50)));
+  h.style.left = localX + 'px';
+  h.style.top = '-40px';
+  const fallTime = (2 + Math.random()*2).toFixed(2);
+  gameArea.appendChild(h);
+  requestAnimationFrame(()=> { h.style.top = (gameArea.clientHeight - 60) + 'px'; });
+  h.addEventListener('click', ()=>{
+    score++; scoreEl.textContent = score;
+    showPopup("Kamu dapet hati! 💕");
+    if(popSfx){ popSfx.currentTime = 0; popSfx.play().catch(()=>{}); }
+    h.remove();
+  });
+  setTimeout(()=> { if(h.parentElement) h.remove(); }, (parseFloat(fallTime)+0.4)*1000);
+}
+
+setInterval(spawnGameHeart, 900);
+setInterval(()=> { if(Math.random() < 0.18) spawnChasingHeart(); }, 1200);
+
+/* ====== Score reset & mute all sounds ====== */
+document.getElementById('resetScoreBtn').addEventListener('click', ()=>{ score = 0; scoreEl.textContent = 0; showPopup("Skor direset ✅"); });
+
+let globalMuted = false;
+document.getElementById('muteBtn').addEventListener('click', ()=>{
+  globalMuted = !globalMuted;
+  [bgm, meowSfx, popSfx, dingSfx].forEach(a=>{ if(a) a.muted = globalMuted; });
+  document.getElementById('muteBtn').innerText = globalMuted ? 'Unmute' : 'Mute';
+  showPopup(globalMuted ? "Semua suara dimute 🔇" : "Suara aktif 🔊");
+});
+
+/* ====== Quiz logic ====== */
+function answerQuiz(opt){
+  const res = document.getElementById('quizRes');
+  if(opt === 'B'){
+    res.textContent = "Betul! 💖 Kamu paling cantik, Alifia Zahra Iqnesa!";
+    launchConfetti(20);
+  } else {
+    res.textContent = "Hehe salah 😜 coba lagi!";
+  }
+}
+
+/* ====== Cat behaviour + chaseHearts ====== */
+let catX = 12;
+let catDir = 1;
+let catPlaying = true;
+
+function moveCatAuto(){
+  if(!catPlaying) return;
+  const max = catBox.clientWidth - 64 - 12;
+  catX += catDir * (1.6 + Math.random()*1.8);
+  if(catX > max || catX < 8){ catDir *= -1; catEl.style.transform = (catDir===-1 ? 'scaleX(-1)' : 'scaleX(1)'); }
+  catEl.style.left = catX + 'px';
+}
+let catInterval = setInterval(moveCatAuto, 40);
+
+function playMeow(){ if(meowSfx){ meowSfx.currentTime = 0; meowSfx.play().catch(()=>{}); } meowBadge.style.display='block'; setTimeout(()=> meowBadge.style.display='none',600); }
+
+catEl.addEventListener('click', ()=>{
+  // manual jump
+  catEl.classList.remove('jump'); void catEl.offsetWidth; catEl.classList.add('jump');
+  playMeow();
+  catX += (Math.random()*140 - 70);
+  if(catX < 8) catX = 8;
+  const max = catBox.clientWidth - 64 - 12;
+  if(catX > max) catX = max;
+  catEl.style.left = catX + 'px';
+  // hearts burst
+  for(let i=0;i<5;i++){
+    const c = document.createElement('div'); c.className='confetti'; c.textContent = ['💖','💕'][Math.floor(Math.random()*2)];
+    const left = catEl.getBoundingClientRect().left + (Math.random()*40 - 20);
+    c.style.left = Math.max(6, Math.min(window.innerWidth-40, left)) + 'px';
+    c.style.fontSize = (12 + Math.random()*16)+'px';
+    c.style.animationDuration = (1 + Math.random()*1.2)+'s';
+    document.body.appendChild(c); setTimeout(()=> c.remove(), 1200 + Math.random()*600);
+  }
+});
+
+/* chaseHearts: cat will chase nearest heart in gameArea */
+function chaseHearts(){
+  if(!catPlaying) return;
+  const hearts = Array.from(gameArea.querySelectorAll('.game-heart'));
+  if(hearts.length === 0) return;
+  // choose first visible heart (top of DOM)
+  const targetEl = hearts[0];
+  const targetRect = targetEl.getBoundingClientRect();
+  const catRect = catEl.getBoundingClientRect();
+  // convert to center X positions
+  const targetX = targetRect.left + targetRect.width/2;
+  const catXcenter = catRect.left + catRect.width/2;
+  // move horizontally toward target
+  if(targetX > catXcenter + 12){
+    catDir = 1;
+    catX = (parseInt(catEl.style.left) || 12) + 3;
+    catEl.style.left = Math.min(catBox.clientWidth - 64, catX) + 'px';
+    catEl.style.transform = 'scaleX(1)';
+  } else if(targetX < catXcenter - 12){
+    catDir = -1;
+    catX = (parseInt(catEl.style.left) || 12) - 3;
+    catEl.style.left = Math.max(8, catX) + 'px';
+    catEl.style.transform = 'scaleX(-1)';
+  }
+  // if close enough, jump and catch
+  if(Math.abs(targetX - catXcenter) < 40){
+    catEl.classList.remove('jump'); void catEl.offsetWidth; catEl.classList.add('jump');
+    // remove heart, add score
+    if(targetEl.parentElement){ targetEl.remove(); score++; scoreEl.textContent = score; showPopup("Kucing nangkep hati buat kamu 💖"); if(popSfx){ popSfx.currentTime=0; popSfx.play().catch(()=>{}); } }
+  }
+}
+setInterval(chaseHearts, 200);
+
+/* toggle cat play */
+document.getElementById('toggleCatPlay').addEventListener('click', ()=>{
+  catPlaying = !catPlaying;
+  if(catPlaying){ catInterval = setInterval(moveCatAuto, 40); showPopup("Kucing mulai jalan lagi 🐾"); }
+  else { clearInterval(catInterval); showPopup("Kucing istirahat dulu 😴"); }
+});
+document.getElementById('meowBtn').addEventListener('click', playMeow);
+
+/* ====== Music controls & autoplay attempts ====== */
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const volSlider = document.getElementById('vol');
+playBtn.addEventListener('click', ()=> { bgm.play().catch(()=>{}); showPopup("Musik dimainkan ▶️"); });
+pauseBtn.addEventListener('click', ()=> { bgm.pause(); showPopup("Musik dijeda ⏸️"); });
+volSlider.addEventListener('input', ()=> { bgm.volume = parseFloat(volSlider.value); });
+
+bgm.volume = parseFloat(volSlider.value);
+bgm.play().catch(()=>{ /* blocked until user interaction */ });
+
+window.addEventListener('pointerdown', function oncePlay(){
+  bgm.play().catch(()=>{});
+  if(meowSfx) meowSfx.play().catch(()=>{ meowSfx.pause(); meowSfx.currentTime=0; });
+  window.removeEventListener('pointerdown', oncePlay);
+});
+
+/* ====== idle surprise ====== */
+let idleTimer;
+function resetIdleTimer(){ clearTimeout(idleTimer); idleTimer = setTimeout(()=>{ showPopup("Sayangku, jangan lupa senyum ya 💕"); spawnBgHeart(); spawnBgHeart(); spawnBgHeart(); }, 12000); }
+window.addEventListener('mousemove', resetIdleTimer); window.addEventListener('click', resetIdleTimer); resetIdleTimer();
+
+/* ====== background click popup (but not on interactive controls) ====== */
+document.body.addEventListener('click', (e)=>{
+  const tagsIgnore = ['BUTTON','A','INPUT','IMG','VIDEO','SOURCE'];
+  if(tagsIgnore.includes(e.target.tagName)) return;
+  showPopup( ["Aku cinta kamu 😘","Kamu spesial buat aku 💕","Mau pelukan? 🤗"][Math.floor(Math.random()*3)], 1800 );
+});
+
+/* ====== gallery enlarge for videos (already wired above) ====== */
+/* Note: gallery/video click uses openModalWithMedia declared earlier */
+
+/* ====== Ensure starting slide shown ====== */
+showSlide(0);
+
+/* ====== End of script ====== */
+function chaseHearts() {
+  if (!catPlaying) return;
+  const hearts = document.querySelectorAll("#gameArea .heart");
+  if (hearts.length === 0) return;
+
+  const gameArea = document.getElementById("gameArea");
+  const target = hearts[0].getBoundingClientRect();
+  const catRect = catEl.getBoundingClientRect();
+  const areaRect = gameArea.getBoundingClientRect();
+
+  const targetX = target.left + target.width / 2;
+  let catX = catRect.left + catRect.width / 2;
+
+  // Gerak ke kanan
+  if (targetX > catX + 10) {
+    catDir = 1;
+    catEl.style.left = (parseInt(catEl.style.left) || 12) + 3 + "px";
+  }
+  // Gerak ke kiri
+  else if (targetX < catX - 10) {
+    catDir = -1;
+    catEl.style.left = (parseInt(catEl.style.left) || 12) - 3 + "px";
+  }
+
+  // 🚧 Batasi biar gak keluar area
+  let newLeft = parseInt(catEl.style.left) || 0;
+  const maxLeft = gameArea.clientWidth - catEl.offsetWidth;
+  if (newLeft < 0) newLeft = 0;
+  if (newLeft > maxLeft) newLeft = maxLeft;
+  catEl.style.left = newLeft + "px";
+
+  // Lompat tangkap hati
+  if (Math.abs(targetX - catX) < 30) {
+    catEl.classList.add("jump");
+    setTimeout(() => catEl.classList.remove("jump"), 500);
+
+    hearts[0].remove();
+    score++;
+    scoreEl.textContent = score;
+    showPopup("Kucing nangkep hati buat kamu 💖");
+    if (popSfx) {
+      popSfx.currentTime = 0;
+      popSfx.play().catch(() => {});
+    }
+  }
+}
+
+</script>
+</body>
+</html>
